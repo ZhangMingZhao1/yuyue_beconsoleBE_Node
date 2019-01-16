@@ -1,0 +1,36 @@
+{
+  "name": "yuyue_beconsolebe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZhangMingZhao1/yuyue_beconsoleBE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZhangMingZhao1/yuyue_beconsoleBE/issues"
+  },
+  "homepage": "https://github.com/ZhangMingZhao1/yuyue_beconsoleBE#readme",
+  "dependencies": {
+    "koa": "^2.6.2"
+  },
+  "devDependencies": {
+    "ejs": "^2.6.1",
+    "i": "^0.3.6",
+    "koa-bodyparser": "^4.2.1",
+    "koa-mysql-session": "0.0.2",
+    "koa-router": "^7.4.0",
+    "koa-session-minimal": "^3.0.4",
+    "koa-static": "^5.0.0",
+    "koa-static-cache": "^5.1.2",
+    "koa-views": "^6.1.5",
+    "md5": "^2.2.1",
+    "moment": "^2.23.0",
+    "mysql": "^2.16.0"
+  }
+}
