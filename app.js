@@ -1,7 +1,6 @@
 const koa = require("koa");   //node框架
 const path = require("path");  
 const bodyParser = require("koa-bodyparser"); //表单解析中间件
-const ejs = require("ejs");   //模板引擎
 const session = require("koa-session-minimal");   //处理数据库的中间件
 const MysqlStore = require("koa-mysql-session");  //处理数据库的中间件
 const router = require("koa-router");     //路由中间件
