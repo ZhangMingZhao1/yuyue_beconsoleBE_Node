@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/ZhangMingZhao1/yuyue_beconsoleBE#readme",
   "dependencies": {
-    "koa": "^2.6.2"
+    "koa": "^2.6.2",
+    "koa2-cors": "^2.0.6"
   },
   "devDependencies": {
     "ejs": "^2.6.1",

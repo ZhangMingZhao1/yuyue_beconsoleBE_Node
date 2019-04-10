@@ -30,5 +30,8 @@ let query = function(sql, values) {
     })
     })
 }
- 
+
+//新增加盟商信息
+let _sql = `insert into be_franinfo(fran_id)`;
+
 module.exports = { query }

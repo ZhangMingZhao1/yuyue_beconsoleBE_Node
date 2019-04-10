@@ -8,21 +8,38 @@ const config = require('./config/default.js');    //引入默认文件
 const views = require("koa-views");   //模板呈现中间件
 const koaStatic = require("koa-static");  //静态资源加载中间件
 const staticCache = require('koa-static-cache')
+const cors = require("koa2-cors");
 const app = new koa();
 
 //session存储配置，将session存储至数据库
-const sessionMysqlConfig = {
-    user: config.database.USERNAME,
-    password: config.database.PASSWORD,
-    database: config.database.DATABASE,
-    host: config.database.HOST,
-}
+// const sessionMysqlConfig = {
+//     user: config.database.USERNAME,
+//     password: config.database.PASSWORD,
+//     database: config.database.DATABASE,
+//     host: config.database.HOST,
+// }
+
+//配置跨域中间件
+app.use(cors({
+    origin: function(ctx) {
+      if (ctx.url === '/test') {
+        return false;
+      }
+      return 'http://localhost:3006';
+    },
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  }));
+
 
 //配置session中间件
-app.use(session({
-    key: 'USER_SID',
-    store: new MysqlStore(sessionMysqlConfig)
-}))
+// app.use(session({
+//     key: 'USER_SID',
+//     store: new MysqlStore(sessionMysqlConfig)
+// }))
 
 //配置静态资源加载中间件
 app.use(koaStatic(
@@ -43,22 +60,9 @@ app.use(bodyParser({
 
 //使用新建的路由文件
 //登录
+app.use(require('./routers/login.js').routes())
 app.use(require('./routers/memberM.js').routes())
-// app.use(require('./routers/signin.js').routes())
-// //注册
-// app.use(require('./routers/signup.js').routes())
-// //退出登录
-// app.use(require('./routers/signout.js').routes())
-// //首页
-// app.use(require('./routers/home.js').routes())
-// //个人主页
-// app.use(require('./routers/personal').routes())
-// //文章页
-// app.use(require('./routers/articles').routes())
-// //资源分享
-// app.use(require('./routers/share').routes())
-// //个人日记
-// app.use(require('./routers/selfNote').routes())
+app.use(require('./routers/franrank.js').routes())
 
 //监听在8080端口
 app.listen(8080) 
