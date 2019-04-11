@@ -32,6 +32,25 @@ let query = function(sql, values) {
 }
 
 //新增加盟商信息
-let _sql = `insert into be_franinfo(fran_id)`;
+let addFranInfo = (value)=>{
+    let _sql = `insert into be_franinfo(fran_id)`;
+    return query(_sql,value);
+}
 
-module.exports = { query }
+
+//加盟商基本信息
+let findBaseFranInfo = function(value) {
+    let _sql = `select id,fran_id,name,type,rank,contact,phone,state from be_franinfo`;
+    return query(_sql,value);
+}
+
+
+
+//加盟商详细信息
+let findFranDetailInfo = (value)=>{
+    let _sql = `select * from be_franinfo`;
+    return query(_sql,value);
+    
+}
+
+module.exports = { query,addFranInfo,findBaseFranInfo,findFranDetailInfo}

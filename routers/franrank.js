@@ -1,6 +1,8 @@
 const router = require('koa-router')();
 const { query } = require('../model/mysql')
+const sql = require('../model/mysql.js');
 
+//加盟商等级
 router.get('/yuyue/franrank', async(ctx,next)=>{
     console.log('franrank进来了');
     let sql = 'SELECT * FROM be_franrank ';
@@ -15,6 +17,14 @@ router.get('/yuyue/franrank', async(ctx,next)=>{
 
 router.get('/yuyue/franinfo',async(ctx,next)=>{
     console.log('franinfo进来了');
+    let result = await sql.findBaseFranInfo();
+    
+    ctx.body = result;
+})
+
+//加盟商详细信息
+router.get('/yuyue/frandetail',async(ctx,next)=>{
+    console.log('frandetail进来了');
     let sql = 'SELECT * FROM franinfo ';
     let dataList = await query( sql );
     // console.log(dataList);
