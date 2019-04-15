@@ -18,17 +18,21 @@ router.get('/yuyue/franrank', async(ctx,next)=>{
 router.get('/yuyue/franinfo',async(ctx,next)=>{
     console.log('franinfo进来了');
     let result = await sql.findBaseFranInfo();
-    
     ctx.body = result;
 })
 
 //加盟商详细信息
-router.get('/yuyue/frandetail',async(ctx,next)=>{
+router.get('/yuyue/frandetail/:id',async(ctx,next)=>{
     console.log('frandetail进来了');
-    let sql = 'SELECT * FROM franinfo ';
-    let dataList = await query( sql );
-    // console.log(dataList);
-    ctx.body = dataList;
+    let id = ctx.params.id;
+    await sql.findFranDetailInfo(id)
+        .then(data=>{
+            if(data.length>0) {
+                ctx.body = data;
+            }else {
+                ctx.body = {message:"没有找到相关数据",code:0}
+            }
+        })
 })
 
 router.post('/yuyue/addfraninfo',async(ctx,next)=>{
@@ -37,9 +41,6 @@ router.post('/yuyue/addfraninfo',async(ctx,next)=>{
     let dataList = await query( sql );
     // console.log(dataList);
     ctx.body = dataList;
-    console.log('ctx.session ',ctx.session);
-    console.log('ctx.cookies',ctx.cookies.get('name'));
-    console.log('ctx.request ',ctx.request);
     // console.log('ctx.sessionID',ctx.sessionID)
 })
 

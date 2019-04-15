@@ -40,16 +40,16 @@ let addFranInfo = (value)=>{
 
 //加盟商基本信息
 let findBaseFranInfo = function(value) {
-    let _sql = `select id,fran_id,name,type,rank,contact,phone,state from be_franinfo`;
+    let _sql = `select id,fran_id,name,type,rank,contact_name,contact_phone,state from be_franinfo`;
     return query(_sql,value);
 }
 
 
 
 //加盟商详细信息
-let findFranDetailInfo = (value)=>{
-    let _sql = `select * from be_franinfo`;
-    return query(_sql,value);
+let findFranDetailInfo = (id)=>{
+    let _sql = `SELECT * FROM be_franinfo where id=${id}`;
+    return query(_sql);
     
 }
 
