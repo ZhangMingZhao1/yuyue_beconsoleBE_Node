@@ -53,4 +53,37 @@ let findFranDetailInfo = (id)=>{
     
 }
 
-module.exports = { query,addFranInfo,findBaseFranInfo,findFranDetailInfo}
+//修改加盟商信息
+let modifyFranInfo = (value,id)=>{
+    console.log(value,id);
+    let _sql = `UPDATE be_franinfo SET 
+        name=?, 
+        rank=?,
+        state=?,
+        type=?,
+        id_type=?,
+        id_number=?,
+        resginster_address=?,
+        commu_address=?,
+        legal_person=?,
+        legal_person_phone=?,
+        legal_person_mailbox=?,
+        contact_name=?,
+        contact_phone=?,
+        contact_mailbox=?,
+        account_name=?,
+        account_number=?,
+        bank=?,
+        remark=? where id=${id}
+        `;
+    return query(_sql,value);
+    
+}
+
+//删除加盟商信息
+let deleteFranInfo = (id)=>{
+    let _sql = `DELETE FROM be_franinfo WHERE id=${id}`;
+    return query(_sql);
+} 
+
+module.exports = { query,addFranInfo,findBaseFranInfo,findFranDetailInfo,modifyFranInfo}
