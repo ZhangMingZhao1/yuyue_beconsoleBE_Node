@@ -1,7 +1,8 @@
 //import { create } from 'domain';
 
 var mysql = require('mysql');
-var config = require('../config/default.js')
+var config = require('../config/default.js');
+var moment = require('moment');
 //建立数据库连接池
 var pool = mysql.createPool({
     host: config.database.HOST,
@@ -29,12 +30,6 @@ let query = function(sql, values) {
          
     })
     })
-}
-
-//新增加盟商信息
-let addFranInfo = (value)=>{
-    let _sql = `insert into be_franinfo(fran_id)`;
-    return query(_sql,value);
 }
 
 
@@ -80,10 +75,60 @@ let modifyFranInfo = (value,id)=>{
     
 }
 
+//新增加盟商信息
+// let addFranInfo = (value,name)=>{
+//     //时间戳当id
+//     // let fran_id = parseInt(new Date().getTime()/1000).toString();
+//     let fran_id = "201533666666"
+//     let founde_time = new Date().toLocaleString();
+//     console.log(fran_id,founde_time)
+//     let _sql = `insert into be_franinfo(
+        
+//         name,
+//         rank, 
+//         state, 
+//         type, 
+//         id_type, 
+
+//         id_number, 
+//         resginster_address, 
+//         commu_address, 
+//         legal_person, 
+//         legal_person_phone, 
+
+//         legal_person_mailbox, 
+//         contact_name, 
+//         contact_phone,
+//         contact_mailbox, 
+//         account_name, 
+
+//         account_number, 
+//         bank, 
+//         remark, 
+//         founder, 
+//         founde_time, 
+//         ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,${name},${founde_time})`;
+//     return query(_sql,value);
+// }
+
+let addFranInfo = (value,name)=>{
+    //时间戳当id
+    // let fran_id = parseInt(new Date().getTime()/1000).toString();
+    let fran_id = Date.parse(new Date());
+
+    //时间戳当时间 timestamp和vachar的这里时间字符串带-就报错
+    // let founde_time = new Date().toLocaleString().replace(/\s*/g,"");
+    let founde_time = Date.parse(new Date());
+    console.log(fran_id,founde_time)
+    console.log('name',name);
+    let _sql = `insert into be_franinfo(fran_id,name,rank,state, type,id_type,id_number,resginster_address,commu_address,legal_person,legal_person_phone,legal_person_mailbox,contact_name,contact_phone,contact_mailbox,account_name,account_number,bank,remark,founder,founde_time) values(${fran_id},?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,${name},${founde_time})`;
+    return query(_sql,value);
+}
+
 //删除加盟商信息
 let deleteFranInfo = (id)=>{
     let _sql = `DELETE FROM be_franinfo WHERE id=${id}`;
     return query(_sql);
 } 
 
-module.exports = { query,addFranInfo,findBaseFranInfo,findFranDetailInfo,modifyFranInfo}
+module.exports = { query,addFranInfo,findBaseFranInfo,findFranDetailInfo,modifyFranInfo,deleteFranInfo,addFranInfo}

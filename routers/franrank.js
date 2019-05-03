@@ -16,6 +16,7 @@ router.get('/yuyue/franrank', async(ctx,next)=>{
     // console.log('ctx.sessionID',ctx.sessionID)
 })
 
+//加盟山基本信息
 router.get('/yuyue/franinfo',async(ctx,next)=>{
     console.log('franinfo进来了');
     let result = await sql.findBaseFranInfo();
@@ -54,9 +55,43 @@ router.post('/yuyue/modifyfran/:id',async(ctx,next)=>{
                 ctx.body = true;})
         .catch((err=>{
             console.log(err);
-        }))
-               
-        
+        }))  
+})
+
+//新增加盟商信息
+router.post('/yuyue/addfraninfo/:name',async(ctx,next)=>{
+    console.log('addfraninfo进来了');
+    let name = ctx.params.name;
+    let res = ctx.request.body; 
+    await sql.addFranInfo([
+        res.name, res.rank, res.state, res.type, res.id_type,
+        res.id_number,
+        res.resginster_address, res.commu_address,
+        res.legal_person, res.legal_person_phone, res.legal_person_mailbox,
+        res.contact_name, res.contact_phone, res.contact_mailbox,
+        res.account_name, res.account_number, res.bank, res.remark,
+    ],name)
+        .then(res=>{
+            console.log("新增加盟商信息成功");
+            ctx.body = true;
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+  
+})
+
+//加盟山删除
+router.del("/yuyue/franinfo/:id", async(ctx,next)=>{
+    let id = ctx.params.id;
+    await sql.deleteFranInfo(id)
+        .then(res=>{
+            console.log("删除加盟商信息成功");
+            ctx.body = true;
+        })
+        .catch(err=>{
+            console.log(err);
+        })
 })
 
 router.get('/redis',async(ctx, next)=>{
@@ -66,14 +101,7 @@ router.get('/redis',async(ctx, next)=>{
     
 })
 
-// router.post('/yuyue/addfraninfo',async(ctx,next)=>{
-//     console.log('addfraninfo进来了');
-//     let sql = 'SELECT * FROM be_franrank ';
-//     let dataList = await query( sql );
-//     // console.log(dataList);
-//     ctx.body = dataList;
-//     // console.log('ctx.sessionID',ctx.sessionID)
-// })
+
 
 
 module.exports = router; 

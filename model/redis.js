@@ -5,12 +5,14 @@ const {promisify} = require('util');
 
 
 var host = config.ip,
-port = config.port;
+port = config.port,
+password = config.password;
 
 var client  = redis.createClient(port, host, {detect_buffers: true});
+client.auth(password)
 // Redis连接错误
 client.on("error", function(error) {
-    console.log('err',err); 
+    console.log('err',error); 
 });
 const getAsync = promisify(client.get).bind(client);
 
