@@ -81,6 +81,24 @@ router.post('/yuyue/addfraninfo/:name',async(ctx,next)=>{
   
 })
 
+//新增加盟商等级
+router.post("/yuyue/addfranrank",async(ctx,next)=>{
+    console.log('addfranrank进来了');
+    let res = ctx.request.body; 
+    await sql.addFranRank([
+        res.rank_name,
+        res.discount,
+        res.dividend
+    ])
+        .then(res=>{
+            console.log("新增加盟商等级成功");
+            ctx.body = true;
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+})
+
 //加盟山删除
 router.del("/yuyue/franinfo/:id", async(ctx,next)=>{
     let id = ctx.params.id;

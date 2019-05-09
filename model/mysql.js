@@ -76,41 +76,6 @@ let modifyFranInfo = (value,id)=>{
 }
 
 //新增加盟商信息
-// let addFranInfo = (value,name)=>{
-//     //时间戳当id
-//     // let fran_id = parseInt(new Date().getTime()/1000).toString();
-//     let fran_id = "201533666666"
-//     let founde_time = new Date().toLocaleString();
-//     console.log(fran_id,founde_time)
-//     let _sql = `insert into be_franinfo(
-        
-//         name,
-//         rank, 
-//         state, 
-//         type, 
-//         id_type, 
-
-//         id_number, 
-//         resginster_address, 
-//         commu_address, 
-//         legal_person, 
-//         legal_person_phone, 
-
-//         legal_person_mailbox, 
-//         contact_name, 
-//         contact_phone,
-//         contact_mailbox, 
-//         account_name, 
-
-//         account_number, 
-//         bank, 
-//         remark, 
-//         founder, 
-//         founde_time, 
-//         ) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,${name},${founde_time})`;
-//     return query(_sql,value);
-// }
-
 let addFranInfo = (value,name)=>{
     //时间戳当id
     // let fran_id = parseInt(new Date().getTime()/1000).toString();
@@ -121,9 +86,31 @@ let addFranInfo = (value,name)=>{
     let founde_time = Date.parse(new Date());
     console.log(fran_id,founde_time)
     console.log('name',name);
-    let _sql = `insert into be_franinfo(fran_id,name,rank,state, type,id_type,id_number,resginster_address,commu_address,legal_person,legal_person_phone,legal_person_mailbox,contact_name,contact_phone,contact_mailbox,account_name,account_number,bank,remark,founder,founde_time) values(${fran_id},?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,${name},${founde_time})`;
+    let _sql = `insert into be_franinfo(
+        fran_id,
+        name,rank,state, type,id_type,id_number,
+        resginster_address,commu_address,legal_person,legal_person_phone,legal_person_mailbox,
+        contact_name,contact_phone,contact_mailbox,
+        account_name,account_number,bank,remark,founder,founde_time) 
+        values(${fran_id},
+            ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+            ${name},${founde_time})`;
     return query(_sql,value);
 }
+
+//新增加盟商等级
+let addFranRank = (value)=>{
+    console.log('value',value);
+    let _sql = `insert into be_franrank(
+        rank_name,
+        discount,
+        dividend)
+        values(?,?,?)
+    `;
+    return query(_sql,value);
+}
+
+//
 
 //删除加盟商信息
 let deleteFranInfo = (id)=>{
@@ -131,4 +118,5 @@ let deleteFranInfo = (id)=>{
     return query(_sql);
 } 
 
-module.exports = { query,addFranInfo,findBaseFranInfo,findFranDetailInfo,modifyFranInfo,deleteFranInfo,addFranInfo}
+
+module.exports = { query,addFranInfo,findBaseFranInfo,findFranDetailInfo,modifyFranInfo,deleteFranInfo,addFranInfo,addFranRank}
