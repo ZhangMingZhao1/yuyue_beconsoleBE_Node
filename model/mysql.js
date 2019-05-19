@@ -110,7 +110,11 @@ let addFranRank = (value)=>{
     return query(_sql,value);
 }
 
-//
+//删除加盟商等级信息
+let deleteFranRank = (id)=>{
+    let _sql = `DELETE FROM be_franrank WHERE id=${id}`;
+    return query(_sql);
+} 
 
 //删除加盟商信息
 let deleteFranInfo = (id)=>{
@@ -119,4 +123,6 @@ let deleteFranInfo = (id)=>{
 } 
 
 
-module.exports = { query,addFranInfo,findBaseFranInfo,findFranDetailInfo,modifyFranInfo,deleteFranInfo,addFranInfo,addFranRank}
+module.exports = { query,addFranInfo,findBaseFranInfo,
+    findFranDetailInfo,modifyFranInfo,deleteFranInfo,
+    addFranInfo,addFranRank,deleteFranRank}

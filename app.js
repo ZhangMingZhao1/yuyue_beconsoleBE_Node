@@ -58,9 +58,24 @@ app.use(bodyParser({
     "textLimit":"5mb"
 }));
 
+// 全局拦截
+// function localFilter(ctx) {
+//   let session = ctx.params.session;
+//   if (getKey(session)) {
+//       console.log("存在session");
+//   }else {
+//           console.log(ctx.request.url)
+//           ctx.redirect('/login')
+//       }
+//   }
+
+// app.use(async (ctx, next) => {
+//   localFilter(ctx)
+//   await next()
+// })
+
 //使用新建的路由文件
-//登录
-app.use(require('./routers/login.js').routes())
+// app.use(require('./routers/login.js').routes())
 app.use(require('./routers/memberM.js').routes())
 app.use(require('./routers/franrank.js').routes())
 

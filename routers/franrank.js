@@ -99,12 +99,25 @@ router.post("/yuyue/addfranrank",async(ctx,next)=>{
         })
 })
 
-//加盟山删除
+//加盟商信息删除
 router.del("/yuyue/franinfo/:id", async(ctx,next)=>{
     let id = ctx.params.id;
     await sql.deleteFranInfo(id)
         .then(res=>{
             console.log("删除加盟商信息成功");
+            ctx.body = true;
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+})
+
+//加盟商等级删除 修改的功能直接可以删除+新增替换 反正字段少
+router.del("/yuyue/franrank/:id", async(ctx,next)=>{
+    let id = ctx.params.id;
+    await sql.deleteFranRank(id)
+        .then(res=>{
+            console.log("删除加盟商等级成功");
             ctx.body = true;
         })
         .catch(err=>{
